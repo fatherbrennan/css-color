@@ -1,0 +1,18 @@
+# Build
+dist
+
+# Development
+.env
+*.local
+node_modules
+
+# Cache
+.cache
+.DS_Store
+.temp
+temp
+tsconfig.tsbuildinfo
+
+# Logs
+*.log
+logs

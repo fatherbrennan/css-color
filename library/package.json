@@ -1,0 +1,45 @@
+{
+  "name": "css-color-map",
+  "description": "Small package bundles of CSS color maps for use in web applications.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "homepage": "https://github.com/fatherbrennan/css-color-map",
+  "author": {
+    "name": "fatherbrennan",
+    "url": "https://github.com/fatherbrennan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fatherbrennan/css-color-map"
+  },
+  "keywords": ["modular", "css", "named-colors", "typescript", "schema", "type-safe"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "sideEffects": false,
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown"
+  },
+  "devDependencies": {
+    "tsdown": "^0.12.8",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  }
+}

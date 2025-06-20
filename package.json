@@ -1,0 +1,24 @@
+{
+  "name": "css-color-map",
+  "description": "Small package bundles of CSS color maps for use in web applications.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "author": {
+    "name": "fatherbrennan",
+    "url": "https://github.com/fatherbrennan"
+  },
+  "scripts": {
+    "format": "biome format --write",
+    "format.check": "biome check",
+    "format.fix": "biome check --fix --unsafe",
+    "lint": "biome lint --write",
+    "lint.check": "biome lint",
+    "test": "bun test --watch"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.2.16"
+  }
+}
