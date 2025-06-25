@@ -4,6 +4,6 @@
 
 import { rmSync } from 'node:fs';
 
-import { outDir } from './generate';
+import { outDir } from './common';
 
 rmSync(outDir, { force: true, recursive: true });

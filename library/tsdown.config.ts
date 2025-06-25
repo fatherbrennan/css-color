@@ -1,6 +1,6 @@
 import { defineConfig } from 'tsdown';
 
-import { outDirName } from './scripts/generate';
+import { outDirName } from './scripts/common';
 
 const entry = [
   `./src/${outDirName}/index.ts`,

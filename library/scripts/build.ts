@@ -4,16 +4,15 @@
 
 import { write } from 'bun';
 import { existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { join } from 'node:path';
 
 import globalColors from '../src/colors/global';
 import namedColors from '../src/colors/named';
 import specialColors from '../src/colors/special';
 import systemColors from '../src/colors/system';
 import { pascalCase, rgbOrNull, rgbaOrNull } from '../src/utils/config';
+import { outDir } from './common';
 
-export const outDirName = 'dist';
-export const outDir = resolve(__dirname, `../src/${outDirName}`);
 const globalDir = join(outDir, 'global');
 const namedDir = join(outDir, 'named');
 const specialDir = join(outDir, 'special');
