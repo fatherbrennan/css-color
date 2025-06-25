@@ -10,6 +10,8 @@ import globalColors from '../src/colors/global';
 import namedColors from '../src/colors/named';
 import specialColors from '../src/colors/special';
 import systemColors from '../src/colors/system';
+// @ts-ignore
+import typesFileText from '../src/types/index.ts' with { type: 'text' };
 import { pascalCase, rgbOrNull, rgbaOrNull } from '../src/utils/config';
 import { outDir } from './common';
 
@@ -18,6 +20,7 @@ const namedDir = join(outDir, 'named');
 const specialDir = join(outDir, 'special');
 const systemDir = join(outDir, 'system');
 
+// Create the `outDirName` directory if it doesn't exist.
 if (!existsSync(outDir)) {
   mkdirSync(outDir, { recursive: true });
 }
@@ -200,6 +203,8 @@ export const specialColorToTitleMap = ${JSON.stringify(specialColorToTitleMap)} 
 export const globalToTitleMap = ${JSON.stringify(globalValueToTitleMap)} as const;
 /** System color to title map. @example export { blanchedalmond: 'Blanched Almond' } */
 export const systemColorToTitleMap = ${JSON.stringify(systemColorToTitleMap)} as const;
+
+${typesFileText}
 `;
 
 write(join(outDir, 'index.ts'), indexFile).catch(console.error);

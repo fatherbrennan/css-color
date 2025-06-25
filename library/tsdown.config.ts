@@ -3,6 +3,7 @@ import { defineConfig } from 'tsdown';
 import { outDirName } from './scripts/common';
 
 const entry = [
+  `./src/${outDirName}/types.ts`,
   `./src/${outDirName}/index.ts`,
   `./src/${outDirName}/global/index.ts`,
   `./src/${outDirName}/named/index.ts`,
