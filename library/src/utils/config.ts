@@ -7,7 +7,8 @@ import type { ColorsConfigItem, Rgb, Rgba } from '../types';
  * @param s text to convert to pascal case.
  * @returns text in pascal case.
  */
-export const pascalCase = (s: ColorsConfigItem['name']) => s.replace(/\s/g, '');
+export const pascalCase = (s: ColorsConfigItem['title']) =>
+  s.replace(/\s/g, '');
 
 /**
  * A CSS RGB value if any, or null.
@@ -21,12 +22,10 @@ export const rgbOrNull = (rgbValue: ColorsConfigItem['rgb']): Rgb | null =>
 
 /**
  * A CSS RGBA value if any, or null.
- * @param rgbAlphaValue Config item's RGBA value.
- * @returns CSS RGBA value or null if `rgbAlphaValue` is null.
+ * @param rgbaValue Config item's RGBA value.
+ * @returns CSS RGBA value or null if `rgbaValue` is null.
  */
-export const rgbAlphaOrNull = (
-  rgbAlphaValue: ColorsConfigItem['rgbAlpha'],
-): Rgba | null =>
-  rgbAlphaValue === null
+export const rgbaOrNull = (rgbaValue: ColorsConfigItem['rgba']): Rgba | null =>
+  rgbaValue === null
     ? null
-    : `rgba(${rgbAlphaValue[0]},${rgbAlphaValue[1]},${rgbAlphaValue[2]},${rgbAlphaValue[3]})`;
+    : `rgba(${rgbaValue[0]},${rgbaValue[1]},${rgbaValue[2]},${rgbaValue[3]})`;

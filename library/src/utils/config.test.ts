@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 
-import { pascalCase, rgbAlphaOrNull, rgbOrNull } from './config';
+import { pascalCase, rgbOrNull, rgbaOrNull } from './config';
 
 describe('config utilities', () => {
   describe('pascalCase', () => {
@@ -23,18 +23,18 @@ describe('config utilities', () => {
     });
   });
 
-  describe('rgbAlphaOrNull', () => {
-    it('should return null if rgbAlphaValue is null', () => {
-      expect(rgbAlphaOrNull(null)).toBe(null);
+  describe('rgbaOrNull', () => {
+    it('should return null if rgbaValue is null', () => {
+      expect(rgbaOrNull(null)).toBe(null);
     });
 
-    it('should return RGBA value if rgbAlphaValue is not null', () => {
-      expect(rgbAlphaOrNull([255, 0, 0, 1])).toBe('rgba(255,0,0,1)');
-      expect(rgbAlphaOrNull([255, 0, 120, 0])).toBe('rgba(255,0,120,0)');
-      expect(rgbAlphaOrNull([0, 0, 120, 0.1])).toBe('rgba(0,0,120,0.1)');
-      expect(rgbAlphaOrNull([255, 0, 0, 0.5])).toBe('rgba(255,0,0,0.5)');
-      expect(rgbAlphaOrNull([255, 255, 255, 1])).toBe('rgba(255,255,255,1)');
-      expect(rgbAlphaOrNull([0, 0, 0, 0])).toBe('rgba(0,0,0,0)');
+    it('should return RGBA value if rgbaValue is not null', () => {
+      expect(rgbaOrNull([255, 0, 0, 1])).toBe('rgba(255,0,0,1)');
+      expect(rgbaOrNull([255, 0, 120, 0])).toBe('rgba(255,0,120,0)');
+      expect(rgbaOrNull([0, 0, 120, 0.1])).toBe('rgba(0,0,120,0.1)');
+      expect(rgbaOrNull([255, 0, 0, 0.5])).toBe('rgba(255,0,0,0.5)');
+      expect(rgbaOrNull([255, 255, 255, 1])).toBe('rgba(255,255,255,1)');
+      expect(rgbaOrNull([0, 0, 0, 0])).toBe('rgba(0,0,0,0)');
     });
   });
 });
