@@ -1,4 +1,5 @@
-import type { ColorsConfigItem, Rgb, Rgba } from '../types';
+import type { Rgb, Rgba } from '../types';
+import type { ColorsConfigItem } from '../types/private';
 
 /**
  * Transform text to  pascal case.

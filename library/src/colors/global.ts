@@ -1,4 +1,4 @@
-import type { ColorsConfig } from '../types';
+import type { ColorsConfig } from '../types/private';
 
 export default [
   {
