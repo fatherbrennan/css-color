@@ -184,21 +184,21 @@ export const CssColorWithSystem = {
   ...CssSystemColor,
 } as const;
 
-/** Named color to 6-digit hex map. @example { blanchedalmond: '#ffebcd' } */
+/** Named color to 6-digit hex map. @example export { blanchedalmond: '#ffebcd' } */
 export const namedColorToHexMap = ${JSON.stringify(namedColorToHexMap)} as const;
-/** Named color to RGB map. @example { blanchedalmond: 'rgb(255,235,205)' } */
+/** Named color to RGB map. @example export { blanchedalmond: 'rgb(255,235,205)' } */
 export const namedColorToRgbMap = ${JSON.stringify(namedColorToRgbMap)} as const;
-/** Named color to 8-digit hex (with alpha) map. @example { blanchedalmond: '#ffebcdff' } */
+/** Named color to 8-digit hex (with alpha) map. @example export { blanchedalmond: '#ffebcdff' } */
 export const namedColorToHexaMap = ${JSON.stringify(namedColorToHexaMap)} as const;
-/** Named color to RGBA map. @example { blanchedalmond: '#ffebcd' } */
+/** Named color to RGBA map. @example export { blanchedalmond: '#ffebcd' } */
 export const namedColorToRgbaMap = ${JSON.stringify(namedColorToRgbaMap)} as const;
-/** Named color to title map. @example { blanchedalmond: 'Blanched Almond' } */
+/** Named color to title map. @example export { blanchedalmond: 'Blanched Almond' } */
 export const namedColorToTitleMap = ${JSON.stringify(namedColorToTitleMap)} as const;
-/** Special color to title map. @example { currentcolor: 'Current Color' } */
+/** Special color to title map. @example export { currentcolor: 'Current Color' } */
 export const specialColorToTitleMap = ${JSON.stringify(specialColorToTitleMap)} as const;
-/** Global value to title map. @example { unset: 'Unset' } */
+/** Global value to title map. @example export { unset: 'Unset' } */
 export const globalToTitleMap = ${JSON.stringify(globalValueToTitleMap)} as const;
-/** System color to title map. @example { blanchedalmond: 'Blanched Almond' } */
+/** System color to title map. @example export { blanchedalmond: 'Blanched Almond' } */
 export const systemColorToTitleMap = ${JSON.stringify(systemColorToTitleMap)} as const;
 `;
 
