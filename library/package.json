@@ -1,20 +1,28 @@
 {
-  "name": "css-color-map",
-  "description": "Small package bundles of CSS color maps for use in web applications.",
+  "name": "css-color",
+  "description": "A TypeScript tree-shakable library for using CSS colors.",
   "version": "0.0.0",
   "license": "MIT",
   "private": false,
   "type": "module",
-  "homepage": "https://github.com/fatherbrennan/css-color-map",
+  "homepage": "https://github.com/fatherbrennan/css-color",
   "author": {
     "name": "fatherbrennan",
     "url": "https://github.com/fatherbrennan"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fatherbrennan/css-color-map"
+    "url": "https://github.com/fatherbrennan/css-color"
   },
-  "keywords": ["modular", "css", "named-colors", "typescript", "schema", "type-safe"],
+  "keywords": [
+    "css",
+    "colors",
+    "css-color-map",
+    "css-types",
+    "modular",
+    "named-colors",
+    "typescript"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -35,7 +43,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsdown"
+    "build": "tsdown",
+    "prebuild": "bun ./scripts/generate.ts",
+    "postbuild": "bun ./scripts/clean.ts"
   },
   "devDependencies": {
     "tsdown": "^0.12.8",

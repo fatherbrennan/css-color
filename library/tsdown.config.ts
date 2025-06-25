@@ -1,8 +1,18 @@
 import { defineConfig } from 'tsdown';
 
+import { outDirName } from './scripts/generate';
+
+const entry = [
+  `./src/${outDirName}/index.ts`,
+  `./src/${outDirName}/global/index.ts`,
+  `./src/${outDirName}/named/index.ts`,
+  `./src/${outDirName}/special/index.ts`,
+  `./src/${outDirName}/system/index.ts`,
+];
+
 export default defineConfig([
   {
-    entry: ['./src/index.ts'],
+    entry,
     clean: true,
     format: ['esm', 'cjs'],
     minify: false,
@@ -10,7 +20,7 @@ export default defineConfig([
     outDir: './dist',
   },
   {
-    entry: ['./src/index.ts'],
+    entry,
     clean: true,
     format: ['esm', 'cjs'],
     minify: true,

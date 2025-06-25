@@ -1,110 +1,206 @@
+/**
+ * This script will generate files in the `outDirName` directory.
+ */
+
 import { write } from 'bun';
-import { resolve } from 'node:path';
+import { existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
+import { join, resolve } from 'node:path';
 
-import globals from '../src/globals';
-import namedColors from '../src/named-colors';
-import specialNamedColors from '../src/special-named-colors';
-import { pascalCase, rgbAlphaOrNull, rgbOrNull } from '../src/utils/config';
+import globalColors from '../src/colors/global';
+import namedColors from '../src/colors/named';
+import specialColors from '../src/colors/special';
+import systemColors from '../src/colors/system';
+import { pascalCase, rgbOrNull, rgbaOrNull } from '../src/utils/config';
 
-const globalMap = {};
-const globalToHexMap = {};
-const globalToRgbMap = {};
-const globalToHexAlphaMap = {};
-const globalToRgbAlphaMap = {};
-const globalToNameMap = {};
+export const outDirName = 'dist';
+export const outDir = resolve(__dirname, `../src/${outDirName}`);
+const globalDir = join(outDir, 'global');
+const namedDir = join(outDir, 'named');
+const specialDir = join(outDir, 'special');
+const systemDir = join(outDir, 'system');
 
-const namedColorMap = {};
+if (!existsSync(outDir)) {
+  mkdirSync(outDir, { recursive: true });
+}
+
+// Remove everything in the `outDirName` directory for clean slate.
+const files = readdirSync(outDir);
+for (let i = 0; i < files.length; i++) {
+  const filePath = join(outDir, files[i]);
+  rmSync(filePath, { recursive: true });
+}
+
+const namedColor = {};
 const namedColorToHexMap = {};
 const namedColorToRgbMap = {};
-const namedColorToHexAlphaMap = {};
-const namedColorToRgbAlphaMap = {};
-const namedColorToNameMap = {};
+const namedColorToHexaMap = {};
+const namedColorToRgbaMap = {};
+const namedColorToTitleMap = {};
+let namedFile = '';
+let namedHexFile = '';
+let namedRgbFile = '';
+let namedHexaFile = '';
+let namedRgbaFile = '';
 
-const specialNamedColorMap = {};
-const specialNamedColorToHexMap = {};
-const specialNamedColorToRgbMap = {};
-const specialNamedColorToHexAlphaMap = {};
-const specialNamedColorToRgbAlphaMap = {};
-const specialNamedColorToNameMap = {};
+const specialColor = {};
+const specialColorToHexaMap = {};
+const specialColorToRgbaMap = {};
+const specialColorToTitleMap = {};
+let specialFile = '';
+let specialHexaFile = '';
+let specialRgbaFile = '';
 
-for (let i = 0; i < globals.length; i++) {
-  const { hex, hexAlpha, name, rgb, rgbAlpha, value } = globals[i];
-  const pascalCaseName = pascalCase(name);
+const globalValue = {};
+const globalValueToTitleMap = {};
+let globalFile = '';
 
-  globalMap[pascalCaseName] = value;
-  globalToHexMap[value] = hex;
-  globalToRgbMap[value] = rgbOrNull(rgb);
-  globalToHexAlphaMap[value] = hexAlpha;
-  globalToRgbAlphaMap[value] = rgbAlphaOrNull(rgbAlpha);
-  globalToNameMap[value] = name;
-}
+const systemColor = {};
+const systemColorToTitleMap = {};
+let systemFile = '';
+
+const addConstant = (name: string, value: string) => {
+  const variableName = name.replace(/[^\w]([\w])/g, '$1');
+  return `export const ${variableName} = '${value}';\n`;
+};
 
 for (let i = 0; i < namedColors.length; i++) {
-  const { hex, hexAlpha, name, rgb, rgbAlpha, value } = namedColors[i];
-  const pascalCaseName = pascalCase(name);
+  const { hex, hexa, title, rgb: _rgb, rgba: _rgba, value } = namedColors[i];
+  const pascalCaseName = pascalCase(title);
+  const rgb = rgbOrNull(_rgb);
+  const rgba = rgbaOrNull(_rgba);
 
-  namedColorMap[pascalCaseName] = value;
+  if (rgb === null || rgba === null) {
+    throw new Error(`${value} has no rgb or rgba value.`);
+  }
+
+  namedFile += addConstant(value, value);
+  namedHexFile += addConstant(value, hex);
+  namedHexaFile += addConstant(value, hexa);
+  namedRgbFile += addConstant(value, rgb);
+  namedRgbaFile += addConstant(value, rgba);
+
+  namedColor[pascalCaseName] = value;
   namedColorToHexMap[value] = hex;
-  namedColorToRgbMap[value] = rgbOrNull(rgb);
-  namedColorToHexAlphaMap[value] = hexAlpha;
-  namedColorToRgbAlphaMap[value] = rgbAlphaOrNull(rgbAlpha);
-  namedColorToNameMap[value] = name;
+  namedColorToRgbMap[value] = rgb;
+  namedColorToHexaMap[value] = hexa;
+  namedColorToRgbaMap[value] = rgba;
+  namedColorToTitleMap[value] = title;
 }
 
-for (let i = 0; i < specialNamedColors.length; i++) {
-  const { hex, hexAlpha, name, rgb, rgbAlpha, value } = specialNamedColors[i];
-  const pascalCaseName = pascalCase(name);
+write(join(namedDir, 'index.ts'), namedFile).catch(console.error);
+write(join(namedDir, 'hex.ts'), namedHexFile).catch(console.error);
+write(join(namedDir, 'hexa.ts'), namedHexaFile).catch(console.error);
+write(join(namedDir, 'rgb.ts'), namedRgbFile).catch(console.error);
+write(join(namedDir, 'rgba.ts'), namedRgbaFile).catch(console.error);
 
-  specialNamedColorMap[pascalCaseName] = value;
-  specialNamedColorToHexMap[value] = hex;
-  specialNamedColorToRgbMap[value] = rgbOrNull(rgb);
-  specialNamedColorToHexAlphaMap[value] = hexAlpha;
-  specialNamedColorToRgbAlphaMap[value] = rgbAlphaOrNull(rgbAlpha);
-  specialNamedColorToNameMap[value] = name;
+for (let i = 0; i < specialColors.length; i++) {
+  const { hexa, title, rgba: _rgba, value } = specialColors[i];
+  const pascalCaseName = pascalCase(title);
+  const rgba = rgbaOrNull(_rgba);
+
+  specialFile += addConstant(value, value);
+
+  if (hexa !== null) {
+    specialHexaFile += addConstant(value, hexa);
+    specialColorToHexaMap[value] = hexa;
+  }
+
+  if (rgba !== null) {
+    specialRgbaFile += addConstant(value, rgba);
+    specialColorToRgbaMap[value] = rgba;
+  }
+
+  specialColor[pascalCaseName] = value;
+  specialColorToTitleMap[value] = title;
 }
 
-const CssColorMap = {
-  ...namedColorMap,
-  ...specialNamedColorMap,
-  ...globalMap,
-};
+write(join(specialDir, 'index.ts'), specialFile).catch(console.error);
+write(join(specialDir, 'hexa.ts'), specialHexaFile).catch(console.error);
+write(join(specialDir, 'rgba.ts'), specialRgbaFile).catch(console.error);
 
-const CssColorToNameMap = {
-  ...namedColorToNameMap,
-  ...specialNamedColorToNameMap,
-  ...globalToNameMap,
-};
+for (let i = 0; i < globalColors.length; i++) {
+  const { title, value } = globalColors[i];
+  const pascalCaseName = pascalCase(title);
 
-const fileContent = `
-export const CssColorMap = ${JSON.stringify(CssColorMap)} as const;
-export const CssColorToNameMap = ${JSON.stringify(CssColorToNameMap)} as const;
-export const globalMap = ${JSON.stringify(globalMap)} as const;
-export const globalToHexMap = ${JSON.stringify(globalToHexMap)} as const;
-export const globalToRgbMap = ${JSON.stringify(globalToRgbMap)} as const;
-export const globalToHexAlphaMap = ${JSON.stringify(globalToHexAlphaMap)} as const;
-export const globalToRgbAlphaMap = ${JSON.stringify(globalToRgbAlphaMap)} as const;
-export const globalToNameMap = ${JSON.stringify(globalToNameMap)} as const;
-export const namedColorMap = ${JSON.stringify(namedColorMap)} as const;
+  globalFile += addConstant(value, value);
+
+  globalValue[pascalCaseName] = value;
+  globalValueToTitleMap[value] = title;
+}
+
+write(join(globalDir, 'index.ts'), globalFile).catch(console.error);
+
+for (let i = 0; i < systemColors.length; i++) {
+  const { title, value } = systemColors[i];
+  const pascalCaseName = pascalCase(title);
+
+  systemFile += addConstant(value, value);
+
+  systemColor[pascalCaseName] = value;
+  systemColorToTitleMap[value] = title;
+}
+
+write(join(systemDir, 'index.ts'), systemFile).catch(console.error);
+
+/**
+ * generate index.ts
+ */
+
+const indexFile = `
+/** CSS named colors. */
+export const CssNamedColor = ${JSON.stringify(namedColor)} as const;
+
+/** CSS special colors. */
+export const CssSpecialColor = ${JSON.stringify(specialColor)} as const;
+
+/** CSS global values. Can be used on any property. */
+export const CssGlobal = ${JSON.stringify(globalValue)} as const;
+
+/** CSS system colors. *Not commonly used.* */
+export const CssSystemColor = ${JSON.stringify(systemColor)} as const;
+
+/**
+ * CSS colors.
+ * - Named colors.
+ * - Special colors.
+ * - Global values.
+ */
+export const CssColor = {
+  ...CssNamedColor,
+  ...CssSpecialColor,
+  ...CssGlobal,
+} as const;
+
+/**
+ * CSS colors.
+ * - Named colors.
+ * - Special colors.
+ * - Global values.
+ * - System colors.
+ */
+export const CssColorWithSystem = {
+  ...CssNamedColor,
+  ...CssSpecialColor,
+  ...CssGlobal,
+  ...CssSystemColor,
+} as const;
+
+/** Named color to 6-digit hex map. @example { blanchedalmond: '#ffebcd' } */
 export const namedColorToHexMap = ${JSON.stringify(namedColorToHexMap)} as const;
+/** Named color to RGB map. @example { blanchedalmond: 'rgb(255,235,205)' } */
 export const namedColorToRgbMap = ${JSON.stringify(namedColorToRgbMap)} as const;
-export const namedColorToHexAlphaMap = ${JSON.stringify(namedColorToHexAlphaMap)} as const;
-export const namedColorToRgbAlphaMap = ${JSON.stringify(namedColorToRgbAlphaMap)} as const;
-export const namedColorToNameMap = ${JSON.stringify(namedColorToNameMap)} as const;
-export const specialNamedColorMap = ${JSON.stringify(specialNamedColorMap)} as const;
-export const specialNamedColorToHexMap = ${JSON.stringify(specialNamedColorToHexMap)} as const;
-export const specialNamedColorToRgbMap = ${JSON.stringify(specialNamedColorToRgbMap)} as const;
-export const specialNamedColorToHexAlphaMap = ${JSON.stringify(specialNamedColorToHexAlphaMap)} as const;
-export const specialNamedColorToRgbAlphaMap = ${JSON.stringify(specialNamedColorToRgbAlphaMap)} as const;
-export const specialNamedColorToNameMap = ${JSON.stringify(specialNamedColorToNameMap)} as const;
-
-export type CssColor = typeof CssColorMap[keyof typeof CssColorMap];
-export type CssColorToName = typeof CssColorToNameMap[keyof typeof CssColorToNameMap];
-export type CssGlobal = typeof globalMap[keyof typeof globalMap];
-export type CssGlobalToName = typeof globalToNameMap[keyof typeof globalToNameMap];
-export type CssNamedColor = typeof namedColorMap[keyof typeof namedColorMap];
-export type CssNamedColorToName = typeof namedColorToNameMap[keyof typeof namedColorToNameMap];
-export type CssSpecialNamedColor = typeof specialNamedColorMap[keyof typeof specialNamedColorMap];
-export type CssSpecialNamedColorToName = typeof specialNamedColorToNameMap[keyof typeof specialNamedColorToNameMap];
+/** Named color to 8-digit hex (with alpha) map. @example { blanchedalmond: '#ffebcdff' } */
+export const namedColorToHexaMap = ${JSON.stringify(namedColorToHexaMap)} as const;
+/** Named color to RGBA map. @example { blanchedalmond: '#ffebcd' } */
+export const namedColorToRgbaMap = ${JSON.stringify(namedColorToRgbaMap)} as const;
+/** Named color to title map. @example { blanchedalmond: 'Blanched Almond' } */
+export const namedColorToTitleMap = ${JSON.stringify(namedColorToTitleMap)} as const;
+/** Special color to title map. @example { currentcolor: 'Current Color' } */
+export const specialColorToTitleMap = ${JSON.stringify(specialColorToTitleMap)} as const;
+/** Global value to title map. @example { unset: 'Unset' } */
+export const globalToTitleMap = ${JSON.stringify(globalValueToTitleMap)} as const;
+/** System color to title map. @example { blanchedalmond: 'Blanched Almond' } */
+export const systemColorToTitleMap = ${JSON.stringify(systemColorToTitleMap)} as const;
 `;
 
-write(resolve(__dirname, '../src/index.ts'), fileContent).catch(console.error);
+write(join(outDir, 'index.ts'), indexFile).catch(console.error);

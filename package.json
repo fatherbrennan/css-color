@@ -1,6 +1,6 @@
 {
-  "name": "css-color-map",
-  "description": "Small package bundles of CSS color maps for use in web applications.",
+  "name": "css-color",
+  "description": "A TypeScript tree-shakable library for using CSS colors.",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
@@ -9,6 +9,7 @@
     "name": "fatherbrennan",
     "url": "https://github.com/fatherbrennan"
   },
+  "workspaces": ["library"],
   "scripts": {
     "format": "biome format --write",
     "format.check": "biome check",
