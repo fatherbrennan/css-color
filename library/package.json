@@ -1,7 +1,7 @@
 {
   "name": "@fatherbrennan/css-color",
   "description": "A TypeScript tree-shakable library for using CSS colors.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "private": false,
   "type": "module",
@@ -45,8 +45,7 @@
   "scripts": {
     "build": "tsdown",
     "prebuild": "bun ./scripts/build.ts",
-    "postbuild": "bun ./scripts/clean.ts",
-    "publish": "bun publish"
+    "postbuild": "bun ./scripts/clean.ts"
   },
   "devDependencies": {
     "tsdown": "^0.12.9",
