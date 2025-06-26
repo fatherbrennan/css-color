@@ -1,0 +1,55 @@
+{
+  "name": "@fatherbrennan/css-color",
+  "description": "A TypeScript tree-shakable library for using CSS colors.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "homepage": "https://github.com/fatherbrennan/css-color",
+  "author": {
+    "name": "fatherbrennan",
+    "url": "https://github.com/fatherbrennan"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fatherbrennan/css-color"
+  },
+  "keywords": [
+    "css",
+    "colors",
+    "css-color-map",
+    "css-types",
+    "modular",
+    "named-colors",
+    "typescript"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "sideEffects": false,
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "prebuild": "bun ./scripts/build.ts",
+    "postbuild": "bun ./scripts/clean.ts",
+    "publish": "bun publish"
+  },
+  "devDependencies": {
+    "tsdown": "^0.12.9",
+    "typescript": "^5.8.3"
+  }
+}
