@@ -60,42 +60,6 @@ const theme = {
 };
 ```
 
-### Types
-
-#### Color Objects
-
-```ts
-import type { CssColor } from '@fatherbrennan/css-color';
-
-type CssColorValue = (typeof CssColor)[keyof typeof CssColor];
-
-type Theme = {
-  buttonBackground: CssColorValue;
-  buttonBorder: CssColorValue;
-  buttonText: CssColorValue;
-  buttonHoverBackground: CssColorValue;
-  buttonHoverBorder: CssColorValue;
-  buttonHoverText: CssColorValue;
-  // ...
-};
-```
-
-#### Specific Colors
-
-```ts
-import type { Hex, Hexa, Rgb, Rgba, Var } from '@fatherbrennan/css-color';
-
-type Theme = {
-  buttonBackground: Hex;
-  buttonBorder: Rgb;
-  buttonText: Rgba;
-  buttonHoverBackground: Hex;
-  buttonHoverBorder: Hexa;
-  buttonHoverText: Var;
-  // ...
-};
-```
-
 ### Individual Colors
 
 If you are only wanting to use a couple of colors, you should import them individually.
@@ -136,7 +100,7 @@ const theme = {
 };
 ```
 
-#### Hex format
+#### RGB format
 
 > _Note: it is not possible for transparent to be represented in RGB format since it requires an alpha value._
 
@@ -151,6 +115,42 @@ const theme = {
   buttonHoverBackground: grey,
   buttonHoverBorder: transparent,
   buttonHoverText: white,
+  // ...
+};
+```
+
+### Types
+
+#### Color Objects
+
+```ts
+import type { CssColor } from '@fatherbrennan/css-color';
+
+type CssColorValue = (typeof CssColor)[keyof typeof CssColor];
+
+type Theme = {
+  buttonBackground: CssColorValue;
+  buttonBorder: CssColorValue;
+  buttonText: CssColorValue;
+  buttonHoverBackground: CssColorValue;
+  buttonHoverBorder: CssColorValue;
+  buttonHoverText: CssColorValue;
+  // ...
+};
+```
+
+#### Specific Colors
+
+```ts
+import type { Hex, Hexa, Rgb, Rgba, Var } from '@fatherbrennan/css-color';
+
+type Theme = {
+  buttonBackground: Hex;
+  buttonBorder: Rgb;
+  buttonText: Rgba;
+  buttonHoverBackground: Hex;
+  buttonHoverBorder: Hexa;
+  buttonHoverText: Var;
   // ...
 };
 ```
