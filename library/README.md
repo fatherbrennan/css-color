@@ -1,24 +1,20 @@
-# `css-color`
+# `@fatherbrennan/css-color`
 
 A TypeScript tree-shakable library for using CSS colors.
 
-## Install
+Support for named colors, special colors, system colors and global values. Maps and types are also provided for each color format, making it easy to use colors in your TypeScript code. See the [API](#api) section usage of objects and maps, and the [Types](#types) section for usage of types.
 
-### NPM
+## Install
 
 ```sh
 npm install @fatherbrennan/css-color
 ```
 
-**or**
-
-### Bun
-
 ```sh
 bun install @fatherbrennan/css-color
 ```
 
-### Directory Structure
+## Directory Structure
 
 ```sh
 ├── @fatherbrennan
@@ -156,6 +152,8 @@ type Theme = {
 ```
 
 ## API
+
+Objects and maps.
 
 ```ts
 import {

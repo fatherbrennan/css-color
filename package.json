@@ -1,7 +1,6 @@
 {
-  "name": "css-color",
+  "name": "@fatherbrennan/css-color",
   "description": "A TypeScript tree-shakable library for using CSS colors.",
-  "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "type": "module",
