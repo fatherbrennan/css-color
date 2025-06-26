@@ -1,3 +1,4 @@
+/** Case insensitive hex digit. `[A-Fa-f0-9]` */
 export type HexDigit =
   | `${0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9}`
   | 'A'
@@ -15,7 +16,7 @@ export type HexDigit =
 /** Parameter separator. */
 export type S = ',' | ' ';
 /**
- * Hex RGB value.
+ * 6-bit hex RGB value.
  *
  * I would love to be able to use hex digits for all combinations,
  * but TypeScript cannot yet handle it.
@@ -27,7 +28,7 @@ export type Hex =
   | `#${HexDigit}${HexDigit}${HexDigit}`
   | `#${string}${string}${string}${string}${string}${string}${string}`;
 /**
- * Hex RGBA value.
+ * 8-bit hex RGBA value. RGB with alpha.
  *
  * I would love to be able to use hex digits for all combinations,
  * but TypeScript cannot yet handle it.
@@ -40,8 +41,8 @@ export type Hexa =
   | `#${string}${string}${string}${string}${string}${string}${string}${string}${string}`;
 export type Hsl = `hsl(${string}${S}${string}${S}${string})`;
 export type Hsla = `hsla(${string}${S}${string}${S}${string}${S}${string})`;
-export type HslaDestructured = [number, number, number, number];
 export type HslDestructured = [number, number, number];
+export type HslaDestructured = [number, number, number, number];
 export type Hwb =
   | `hwb(${string}${S}${string}${S}${string})`
   | `hwb(${string}${S}${string}${S}${string}${S}${string})`;
@@ -53,8 +54,11 @@ export type Lab = `lab(${string}${S}${string}${S}${string})`;
 export type Lch = `lch(${string}${S}${string}${S}${string})`;
 export type Oklab = `oklab(${string}${S}${string}${S}${string})`;
 export type Oklch = `oklch(${string}${S}${string}${S}${string})`;
+/** RGB value. */
 export type Rgb = `rgb(${string}${S}${string}${S}${string})`;
+/** RGBA value. RGB with alpha. */
 export type Rgba = `rgba(${string}${S}${string}${S}${string}${S}${string})`;
-export type RgbaDestructured = [number, number, number, number];
 export type RgbDestructured = [number, number, number];
+export type RgbaDestructured = [number, number, number, number];
+/** CSS custom property. CSS variable. */
 export type Var = `var(--${string}${string})`;
